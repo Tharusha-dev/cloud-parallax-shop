@@ -14,10 +14,18 @@
 
     let productCatogories = new Set([]);
 
+    searchStore.subscribe((data)=>{
+        productCatogories.clear()
+        findCatogories(data.allProducts)
+
+    })
+
     function findCatogories(products){
+     
         products.forEach((product)=>{
             productCatogories.add(product.category)
         })
+        selectedCatogories = [...productCatogories]
         console.log(productCatogories)
         catogoriesDone = true;
 
@@ -54,8 +62,8 @@
 
      
     <div class="filter-catogories flex flex-col">
-        {#each productCatogories as catogory}
-        <div class="filter-catogory">
+        {#each productCatogories as catogory (catogory)}
+        <div class="filter-catogory" >
             <label for="">{catogory}</label>
             <input type="checkbox" bind:group={selectedCatogories} name="" id="" value={catogory} />
         </div>
