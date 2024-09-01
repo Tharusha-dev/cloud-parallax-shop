@@ -16,10 +16,12 @@
 
     <a href="/products/all/1">
         <div class="browse-all-outer mt-10">
-            <div class="button bg-white p-3 rounded-md cursor-pointer">Browse all products</div>
+            <a href="/products/all/1">
+                <div class="button bg-white p-3 rounded-md cursor-pointer">Browse all products</div>
+            </a>    
         </div>
     </a>
-    <div class="grid grid-cols-4 gap-x-4 gap-y-14 px-10 my-10 w-full h-1/4">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-4 gap-y-14 px-10 my-10 w-full h-1/4">
 
             {#each data.categories as category}
         

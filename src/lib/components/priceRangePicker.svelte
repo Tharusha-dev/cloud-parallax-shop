@@ -89,7 +89,7 @@ onMount(() => {
 
 <div class="wrapper">
  
-    <div class="price-input" >
+    <div class="price-input flex-col xl:flex-row" >
       <div class="field">
         <span>Min</span>
         <input  bind:this={priceInputMinEl} type="number" class="input-min" bind:value={priceInputMin} on:input={()=>{changeNumbers()}}>

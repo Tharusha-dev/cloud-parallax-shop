@@ -6,6 +6,7 @@
    import { browser } from '$app/environment';
    import { register } from 'swiper/element/bundle';
 	import { onMount } from 'svelte';
+	import SearchBar from '$lib/components/searchBar.svelte';
 
 
     let productsData:Product = data.productData;
@@ -28,7 +29,29 @@
 
 </script>
 
-<div class="product-page px-8 py-8 h-screen lg:grid lg:grid-cols-2 sm:flex sm:flex-col dark:bg-slate-100">
+<div class="flex flex-col px-8 py-8 h-screen">
+
+  <div class="product-page-top flex flex-col lg:flex-row mx-6 ">
+    <div class="logo w-full lg:w-max mr-6">
+      <a href="/" class="mb-8">
+          <h1 class="text-4xl font-semibold">A Simple Shop</h1>
+          <span>By Tharusha</span>
+      </a>
+   
+    </div>
+
+    <div class="search-bar-prod-page w-full lg:w-[60%] h-1/2">
+      <SearchBar data={
+        {placeholder:"Search for a product",value:""}
+      }/>
+    
+    </div>
+
+    
+  </div>
+
+  <div class="product h-full  lg:grid lg:grid-cols-2 sm:flex sm:flex-col dark:bg-slate-100">
+
 
     <div class="prod-image-outer lg:h-full sm:h-1/2 mb-8 border-gray-200 rounded-lg shadow dark:bg-gray-200">
       <swiper-container class="mySwiper" navigation="true">
@@ -72,7 +95,7 @@
         </table>
     </div>
 
-    
+  </div>
 
 </div>
 

@@ -88,7 +88,7 @@
     </script>
 
 
-    <div class="search-page-filters">
+    <div class="search-page-filters bg-white p-3">
        
     
         <PriceRangePicker bind:rangeInputMax={filterPriceMax} bind:rangeInputMin={filterPriceMin}/>
@@ -97,7 +97,7 @@
     
          
         <div class="all-page-filter-catogories flex flex-col">
-            <span>Filter this page</span>
+            <span class="my-4 text-lg font-semibold">Filter this page</span>
             {#each productCatogories as catogory (catogory)}
             <div class="filter-catogory" >
                 <label for="">{catogory}</label>
@@ -110,7 +110,7 @@
 
         {/if}
 
-        <button on:click={()=>{
+        <button class="p-1 rounded-md my-4 bg-slate-300" on:click={()=>{
             productStore.update(data => ({
                 ...data,
                 filteredProducts: data.allProducts.filter(filterProductByPrice)
@@ -131,7 +131,7 @@
         {#if allCatogoriesGot}
 
         <div class="filter-categories-links">
-            <span>Browse Categories</span>
+            <span class="my-4 text-lg font-semibold">Browse Categories</span>
             <div class="grid grid-cols-2 gap-1">
             {#each allCatogories as catogory (catogory)}
             <a href='/products/category/{catogory.slug}/1' class="filter-catogory p-1 bg-slate-300 rounded-sm" >

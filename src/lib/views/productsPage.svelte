@@ -36,7 +36,7 @@
     let innerWidth;
     let innerHeight;
     
-    $: isSmallScreen = innerWidth < 640; 
+    $: isSmallScreen = innerWidth < 1024; 
     $: console.log(innerWidth)
   
 
@@ -48,8 +48,8 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div class="search-results-page p-10 h-max w-full lg:h-screen">
-    <div class="search-results-page-top flex flex-col lg:flex-row h-[10%]">
-        <div class="logo w-full lg:w-1/6">
+    <div class="search-results-page-top flex flex-col md:flex-row h-[10%]">
+        <div class="logo w-full lg:w-max mr-6">
             <a href="/">
                 <h1 class="text-4xl font-semibold">A Simple Shop</h1>
                 <span>By Tharusha</span>
@@ -75,7 +75,7 @@
 
     {#if smallScreenFilterOpen}
 
-    <div class="small-screen-filters w-10/12 fixed inset-0 flex items-center justify-center bg-white">
+    <div class="small-screen-filters w-10/12 fixed inset-0 flex justify-center overflow-y-scroll bg-white">
         <div class="bg-white p-6 rounded-lg shadow-lg z-50">
             <button
         on:click={()=>{smallScreenFilterOpen = false}}

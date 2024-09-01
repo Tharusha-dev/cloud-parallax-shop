@@ -6,6 +6,7 @@ import type {Product} from '$lib/types/types'
 
 const productLimit = 10;
 
+
 type LoadParams = {
     slug: string;
     items_page: string;
@@ -22,6 +23,7 @@ type LoadReturn = {
 
 async function getAllProductWPagination(term:string,page:string){
     let products:Product[] = [];
+ 
 
     let pageNum = parseInt(page) -1
 
@@ -32,9 +34,13 @@ async function getAllProductWPagination(term:string,page:string){
         
         productsResponse.data.products.forEach((product: Product) => {
             products.push(product);
+             
         });
 
-       
+
+     
+
+  
 
         console.log(products.length)
 
