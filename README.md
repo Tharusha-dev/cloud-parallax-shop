@@ -1,4 +1,4 @@
-# Cloud Paralax Assignment -  A Simple Shop
+# Cloud Parallax Assignment -  A Simple Shop
 
 ## Personal Info
 
