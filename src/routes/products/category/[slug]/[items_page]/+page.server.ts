@@ -1,6 +1,6 @@
-import type {PageLoad}  from'@sveltejs/kit'
+import type {PageLoad}  from'@sveltejs/kit';
 import axios from 'axios';
-import type {Product} from '$lib/types/types'
+import type {Product} from '$lib/types/types';
 
 
 
@@ -20,15 +20,15 @@ type LoadReturn = {
 
 
 
-async function getAllProductWPagination(term:string,page:string){
+async function getAllProductWPagination(slug:string,page:string){
     let products:Product[] = [];
 
     let pageNum = parseInt(page) -1
 
     try {
-        console.log(`https://dummyjson.com/products?limit=${productLimit}&skip=${pageNum*productLimit}`);
 
-        const productsResponse = await axios.get(`https://dummyjson.com/products?limit=${productLimit}&skip=${pageNum*productLimit}`);
+        const productsResponse = await axios.get(`https://dummyjson.com/products/category/${slug}?limit=${productLimit}&skip=${pageNum*productLimit}`);
+        console.log(`https://dummyjson.com/products/category/${slug}?limit=${productLimit}&skip=${pageNum*productLimit}`)
         
         productsResponse.data.products.forEach((product: Product) => {
             products.push(product);
@@ -46,8 +46,6 @@ async function getAllProductWPagination(term:string,page:string){
         return []
     }
 }
-
-
 
 
 export const load: PageLoad<LoadParams, LoadReturn> = async ({ params }) => {

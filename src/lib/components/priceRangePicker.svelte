@@ -1,18 +1,20 @@
-<script>
-// @ts-nocheck
+<script lang="ts">
 import { onMount } from "svelte";
 
-let rangeInputMinEl;
-let rangeInputMaxEl;
+let rangeInputMinEl:HTMLInputElement | undefined;
+let rangeInputMaxEl:HTMLInputElement | undefined;
+
 export let rangeInputMax = 1000;
 export let rangeInputMin = 0;
 
-let priceInputMinEl;
-let priceInputMaxEl;
+let priceInputMinEl:HTMLInputElement | undefined;
+let priceInputMaxEl:HTMLInputElement | undefined;
 let priceInputMin = 0;
 let priceInputMax = 1000;
 
-let rangeEl;
+
+
+let rangeEl:HTMLElement | undefined;
 let priceGap = 100;
 
 let minPrice = 0;
@@ -21,47 +23,62 @@ let minVal = 0;
 let maxVal = 1000;
 
 function updateSlider() {
-  rangeEl.style.left = (minPrice / rangeInputMinEl.max) * 100 + "%";
-  rangeEl.style.right = 100 - (maxPrice / rangeInputMaxEl.max) * 100 + "%";
+
+  if(rangeEl && rangeInputMaxEl && rangeInputMinEl){
+
+    let minMax = Number(rangeInputMinEl.max);
+    let maxMax = Number(rangeInputMaxEl.max)
+
+    rangeEl.style.left = (minPrice / minMax) * 100 + "%";
+    rangeEl.style.right = 100 - (maxPrice / maxMax) * 100 + "%";
+  }
+
 }
 
 function changeRange() {
   if (minPrice !== undefined && maxPrice !== undefined && rangeInputMax !== undefined && rangeInputMin !== undefined) {
-    let minVal = parseInt(rangeInputMin),
-      maxVal = parseInt(rangeInputMax);
+    let minVal = rangeInputMin;
+    let maxVal = rangeInputMax;
 
     if (maxVal - minVal < priceGap) {
       rangeInputMin = maxVal - priceGap;
       rangeInputMax = minVal + priceGap;
     } else {
+
+      let minMax = Number(rangeInputMinEl!.max);
+      let maxMax = Number(rangeInputMaxEl!.max)
+
       priceInputMin = minVal;
       priceInputMax = maxVal;
-      rangeEl.style.left = (minVal / rangeInputMinEl.max) * 100 + "%";
-      rangeEl.style.right = 100 - (maxVal / rangeInputMaxEl.max) * 100 + "%";
+      rangeEl!.style.left = (minVal / minMax) * 100 + "%";
+      rangeEl!.style.right = 100 - (maxVal / maxMax) * 100 + "%";
     }
   }
 }
 
 function changeNumbers() {
   if (minVal !== undefined && maxVal !== undefined && rangeInputMax !== undefined && rangeInputMin !== undefined) {
-    let minPrice = parseInt(priceInputMin),
-      maxPrice = parseInt(priceInputMax);
+    let minPrice = priceInputMin;
+    let maxPrice = priceInputMax;
 
-    if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInputMaxEl.max) {
+    let minMax = Number(rangeInputMinEl!.max);
+    let maxMax = Number(rangeInputMaxEl!.max)
+
+    if (maxPrice - minPrice >= priceGap && maxPrice <= maxMax) {
       rangeInputMin = minPrice;
-      rangeEl.style.left = (minPrice / rangeInputMinEl.max) * 100 + "%";
+      rangeEl!.style.left = (minPrice / minMax) * 100 + "%";
       rangeInputMax = maxPrice;
-      rangeEl.style.right = 100 - (maxPrice / rangeInputMaxEl.max) * 100 + "%";
+      rangeEl!.style.right = 100 - (maxPrice / maxMax) * 100 + "%";
     }
   }
 }
 
 onMount(() => {
-  let minPrice = parseInt(priceInputMin);
-  let maxPrice = parseInt(priceInputMax);
+  // let minPrice = parseInt(priceInputMin);
+  // let maxPrice = parseInt(priceInputMax);
 
-  let minVal = parseInt(rangeInputMin);
-  let maxVal = parseInt(rangeInputMax);
+  // let minVal = parseInt(rangeInputMin);
+  // let maxVal = parseInt(rangeInputMax);
 
   updateSlider()
 })

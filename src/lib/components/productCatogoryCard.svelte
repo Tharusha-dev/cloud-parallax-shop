@@ -1,19 +1,15 @@
 <script lang='ts'>
-	import { onMount } from "svelte";
+	  import { onMount } from "svelte";
     import ProductCard from "$lib/components/productCard.svelte"
+  	import type { Product } from "$lib/types/types";
+
+	import axios from "axios";
 
 
     export let data;
 
-    type productForCard = {
-        id:string,
-        title:string,
-        price:number,
-        thumbnail:string
-        
-    }
 
-    let products:productForCard[] = []
+    let products:Product[] = []
 
     let isLoading = true;
     let imageLoaded = false;
@@ -31,26 +27,19 @@
 
     async function getProductsFromCatogory(slug:string){
         try {
-            fetch(`https://dummyjson.com/products/category/${slug}?limit=4`).then((res)=>{res.json().then((productsRes)=>{
+            let productsResponse = await axios.get(`https://dummyjson.com/products/category/${slug}?limit=4`);
 
-                console.log(productsRes)
+        productsResponse.data.products.forEach((product: Product) => {
+            products.push(product);
+        });
 
-                productsRes.products.forEach((product)=>{
-                    products.push({
-                    id:product.id,
-                    title:product.title,
-                    price:product.price,
-                    thumbnail:product.thumbnail,
+        isLoading = false;
 
-                })
-                })
 
-                isLoading = false;
-
-            
-            })})
-        }catch(e){
-
+     
+        }catch(error){
+          console.error('Error fetching products:', error);
+        
         }
     }
 
@@ -62,23 +51,20 @@
 
 
 
-<div class="product-category-card grid grid-cols-2 gap-4 bg-white rounded-t w-full">
-   
+<div class="product-category-card grid grid-cols-2 gap-4 bg-white rounded-lg w-full h-full place-self-cente p-4">
+    
     
     {#if !isLoading}
     <div class="col-span-full">
-        <h2>{data.name}</h2>
+        <h2 class="text-xl font-semibold">{data.name}</h2>
       </div>
       {#each products as product}
       <ProductCard product={product} />
       {/each}
 
-    <span>Browser more</span>
+    <a href='/products/category/{data.slug}/1' class="font-medium">Browser more</a>
 
-    <!-- {:else}
-    <div class="product-card flex flex-col items-center border border-gray-200 rounded-lg shadow dark:bg-gray-300 dark:hover:bg-gray-700">
-        <div class="loader w-full h-auto"></div>
-        </div> -->
+
     {/if}
 
 

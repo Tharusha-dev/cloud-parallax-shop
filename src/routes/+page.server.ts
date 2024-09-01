@@ -1,7 +1,18 @@
 import axios from 'axios';
 import type { PageLoad } from './$types';
+import type { Catogory } from '$lib/types/types';
 
- let catogories = []
+
+type LoadParams = {
+    slug: string;
+ 
+  };
+  
+type LoadReturn = {
+    categoried : Catogory[]
+};
+  
+ let catogories:Catogory[] = []
 
  async function getProductsForLandingPage() {
     try {
@@ -17,16 +28,13 @@ import type { PageLoad } from './$types';
 
 
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad<LoadParams, LoadReturn> = async ({ params }) => {
 
     
 
 
 	return {
-        catogories : await getProductsForLandingPage(),
-		post: {
-			title: `Title for goes here`,
-			content: `Content for goes here`,
-		},
+        categories : await getProductsForLandingPage(),
+	
 	};
 };

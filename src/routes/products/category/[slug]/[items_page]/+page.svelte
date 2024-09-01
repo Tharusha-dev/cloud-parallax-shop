@@ -18,7 +18,7 @@
     
     
     
-    <a href={`/search/${data.slug}/${nextPageNumber}`}>
+    <a href={`/products/category/${data.slug}/${nextPageNumber-2}`}>
         <div class="bg-gray-300 p-2">
             Previous Page
         </div>
@@ -27,7 +27,7 @@
     {/if}
     
     
-    <a href={`/search/${data.slug}/${nextPageNumber}`} class="ml-8">
+    <a href={`/products/category/${data.slug}/${nextPageNumber}`} class="ml-8">
         <div class="bg-gray-300 p-2">
             Next Page
         </div>

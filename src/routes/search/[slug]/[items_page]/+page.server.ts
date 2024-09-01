@@ -1,33 +1,35 @@
 import type { PageLoad } from './$types';
+import type { Product } from '$lib/types/types';
 import axios from 'axios';
 
-type product = {
-    id:string,
-    title:string,
-    price:number,
-    thumbnail:string
-    category:string,
-}
 
 
-let products:product[] = [];
 const productLimit = 10;
 
+type LoadParams = {
+    slug: string;
+    items_page: string;
+  };
+  
+type LoadReturn = {
+    slug: string;
+    products: Product[]; 
+    items_page: string;
+};
+  
+
+
+
 async function getProductsFromSearchTerm(term:string,page:string){
-    products = []
+
+    let products:Product[] = [];
     let pageNum = parseInt(page) -1
+ 
     try {
-        const response = await axios.get(`https://dummyjson.com/products/search?q=${term}&limit=${productLimit}&skip=${pageNum*productLimit}`);
-        console.log(`https://dummyjson.com/products/search?q=${term}&limit=${productLimit}&skip=${pageNum*productLimit}`)
+        const productResponse = await axios.get(`https://dummyjson.com/products/search?q=${term}&limit=${productLimit}&skip=${pageNum*productLimit}`);
         
-        response.data.products.forEach((product: any) => {
-            products.push({
-                id: product.id,
-                title: product.title,
-                price: product.price,
-                thumbnail: product.thumbnail,
-                category: product.category
-            });
+        productResponse.data.products.forEach((product: Product) => {
+            products.push(product);
         });
 
         console.log(products.length)
@@ -44,17 +46,12 @@ async function getProductsFromSearchTerm(term:string,page:string){
 
 
 
-export async function load({ params }) {
+export const load: PageLoad<LoadParams, LoadReturn> = async ({ params }) => {
     const { slug, items_page } = params;
-
-    const tes = await getProductsFromSearchTerm(params.slug,items_page);
-
-
-    
-
+  
     return {
-        slug : slug,
-        products : await getProductsFromSearchTerm(params.slug,items_page),
-        items_page : items_page
+      slug,
+      products: await getProductsFromSearchTerm(slug, items_page),
+      items_page,
     };
-}
+  };
