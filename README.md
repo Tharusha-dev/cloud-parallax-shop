@@ -16,3 +16,7 @@ CV : https://tharusha.dev/cv
 
 GitHub : https://github.com/tharusha-dev
 
+
+## P.S.
+
+https://jsonplaceholder.typicode.com/ does not provide product data, so I had to use https://dummyjson.com/docs/products/ instead.
